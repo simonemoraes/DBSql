@@ -1,0 +1,104 @@
+Metodo para TRIGGER desabilitada
+
+
+***ConsumoMesDao***
+
+public int insertRecord(ConsumoMes consumo) {
+
+        PreparedStatement ps = null;
+        String sql;
+
+
+        sql = "insert into CONSUMO_MES(DATA, MEDIDA) values(?,?)";
+        try {
+            ps = (PreparedStatement) conect.getPreparedStatement(sql);
+            ps.setString(1, consumo.getData());
+            ps.setFloat(2, consumo.getMedida());
+
+        } catch (SQLException e) {
+            Logger.getLogger(ConsumoMesDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        int retorno = 0;
+        try {
+            retorno = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsumoMesDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return retorno;
+    }
+
+____________________________________________________________________________________________
+
+ public static void atualizar() {
+
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        ConsumoMes consumo = new ConsumoMes();
+        
+        consumo.setData("06/08/2015");
+        consumo.setMedida(1388);
+        consumo.setId(261);
+        
+        int retorno = consumoDao.updateRecord(consumo);
+        
+        if(retorno != 0){
+            System.out.println("Atualização feita com sucesso!");
+        }else{
+            System.out.println("Atualização não foi concluida!");
+        }
+    }
+
+____________________________________________________________________________________________
+
+*****Executavel*****
+
+public static void inserir(){
+
+        /*  Criando um objeto da class ConsumoDao para acessar suas propriedades e metodos.*/
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        
+        /* Criando um objeto da class ConsumoMes para acessar suas propriedades e metodos.*/
+        ConsumoMes consumo = new ConsumoMes();
+        
+        consumo.setData("04/08/2015");
+        consumo.setMedida(1700);
+        
+        
+        int retorno = consumoDao.insertRecord(consumo);
+        
+         if(retorno!= 0){
+            System.out.println(retorno);
+        }else{
+             System.out.println("Não houve retorno do banco");
+         }
+    }
+
+____________________________________________________________________________________________
+
+ public int updateRecord(ConsumoMes consumo) {
+
+        PreparedStatement ps;
+        String sql;
+
+        sql = "update CONSUMO_MES set DATA=?, MEDIDA=? where id=?";
+
+        int retorno = 0;
+
+        try {
+            ps = (PreparedStatement) conect.getPreparedStatement(sql);
+            ps.setString(1, consumo.getData());
+            ps.setFloat(2, consumo.getMedida());
+            ps.setInt(3, consumo.getId());
+
+            retorno = ps.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println("Erro: Não foi possível encontrar a instrução");
+        }
+
+        conect.closeAll();
+        return retorno;
+    }
+
+____________________________________________________________________________________________

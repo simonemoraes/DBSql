@@ -1,0 +1,4 @@
+campoNome.setText(tabAplicacao.getValueAt(tabAplicacao.getSelectedRow(), numeroColuna).toString());  
+
+
+Explicação: seta o texto no campo (setText) -> pega valor da tabela (getValueAt()) -> pega a linha que está selecionada (getSelectedRow()) -> e pega da coluna numeroColuna.

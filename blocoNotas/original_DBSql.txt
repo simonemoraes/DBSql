@@ -1,0 +1,184 @@
+package br.com.light.view;
+
+import br.com.light.dao.ConsumoMesDao;
+import br.com.light.gui.Frame_ConsumoMesDao;
+import br.com.light.model.ConsumoMes;
+import br.com.light.gui.Panel_Registros;
+import br.com.light.gui.Panel_Update;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+
+public class DBSql extends Frame_ConsumoMesDao{
+
+    private Connection con;
+    private Statement stmt;
+    
+    Panel_Registros registro;
+    Panel_Update update;
+    
+    public DBSql(){
+        
+          
+        super();
+        registro = new Panel_Registros();
+        update = new Panel_Update();
+        
+        
+    }
+    /*
+    public static void main(String[] args) throws SQLException {
+       
+         //opcaoAlteracao(); 
+        
+       
+    }
+*/
+    public static void opcaoAlteracao() {
+
+        int selecao = Integer.parseInt(JOptionPane.showInputDialog("Escolhar a opção desejada:"
+                + "\n1 - Selecionar "
+                + "\n2 - Selecionar por data "
+                + "\n3 - Selecionar ultimo registro"
+                + "\n4 - Atualizar"
+                + "\n5 - Inserir"
+                + "\n6 - Deletar \n\n"
+                + "Por favor digite o nome do metodo a ser executado"));
+
+        switch (selecao) {
+            
+            case 1:
+                selecionar();
+                break;
+                
+            case 2:
+                selecionarPorData();
+                break;
+
+            case 3:
+               selecionarUltimo();
+                break;
+
+            case 4:
+                atualizar();
+                break;
+
+            case 5:
+                inserir();
+                break;
+                
+            case 6:
+                deletar();
+                break;    
+        }
+    }
+
+    //Método para fazer consulta de registro na base de dados
+    private static void selecionar() {
+
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+
+        List<ConsumoMes> lista = consumoDao.selectRecord();
+
+        for (ConsumoMes consumo : lista) {
+
+            System.out.println(consumo.toString());
+        }
+    }
+    
+    public static void selecionarPorData(){
+        
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        ConsumoMes consumo = new ConsumoMes();
+        String data = null;
+        
+        consumo.setData(JOptionPane.showInputDialog("Digite uma data a ser consultada"));
+
+        ConsumoMes retorno = consumoDao.selectRecordDate(consumo);
+
+        if (retorno != null) {
+            System.out.println(retorno);
+            System.out.println("Operação efetuada com sucesso!");
+        } else {
+            System.out.println("Operação não concluida!");
+        }
+        
+    }
+    
+     public static void selecionarUltimo(){
+        
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        ConsumoMes consumo = new ConsumoMes();
+        //String data = null;
+        
+        //consumo.setData(JOptionPane.showInputDialog("Digite uma data a ser consultada"));
+
+        ConsumoMes retorno = consumoDao.lastInsertSelect(consumo);
+
+        if (retorno != null) {
+            System.out.println(retorno);
+            System.out.println("Operação efetuada com sucesso!");
+        } else {
+            System.out.println("Operação não concluida!");
+        }
+        
+    }   
+
+    //Método para alterar registro na base de dados
+    public static void atualizar() {
+
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        ConsumoMes consumo = new ConsumoMes();
+        
+        consumo.setData(JOptionPane.showInputDialog("Entre com a data\n"));
+        consumo.setMedida(Integer.parseInt(JOptionPane.showInputDialog("Entre com a medida")));
+        consumo.setId(Integer.parseInt(JOptionPane.showInputDialog("Entre com o id")));
+
+        ConsumoMes retorno = consumoDao.updateRecord(consumo);
+
+        if (retorno != null) {
+            System.out.println(retorno);
+            System.out.println("Atualização feita com sucesso!");
+        } else {
+            System.out.println("Atualização não foi concluida!");
+        }
+    }
+
+    //Método para inserir registro na base de dados
+    public static void inserir() {
+
+        /*  Criando um objeto da class ConsumoDao para acessar suas propriedades e metodos.*/
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+
+        /* Criando um objeto da class ConsumoMes para acessar suas propriedades e metodos.*/
+        ConsumoMes consumo = new ConsumoMes();
+        ConsumoMes consumoRetornado = new ConsumoMes();
+
+        consumo.setData(JOptionPane.showInputDialog("Entre com a data"));
+        consumo.setMedida(Integer.parseInt(JOptionPane.showInputDialog("Entre com a medida")));
+
+
+        consumoRetornado = consumoDao.insertRecord(consumo);
+
+        System.out.println(consumoRetornado.toString());
+    }
+
+    //Método para deletar registro na base de dados
+    public static void deletar() {
+
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        ConsumoMes consumo = new ConsumoMes();
+
+        int retorno = consumoDao.deleteRecord(Integer.parseInt(JOptionPane.showInputDialog("Entre com o id")));
+
+        if (retorno != 0) {
+            System.out.println("Registro deletado com sucesso!");
+        } else {
+            System.out.println("Registro não foi deletado!");
+        }
+    }
+}
+
+
