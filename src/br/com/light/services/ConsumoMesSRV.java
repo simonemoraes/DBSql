@@ -39,4 +39,48 @@ public class ConsumoMesSRV {
         return recebeUltimoRegistro;
     }
     
+    public ConsumoMes atualizaRegistro ( Conexao conect ){
+        
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        ConsumoMes consumo = new ConsumoMes();
+        
+        consumo.setData(JOptionPane.showInputDialog("Entre com a data\n"));
+        consumo.setMedida(Integer.parseInt(JOptionPane.showInputDialog("Entre com a medida")));
+        consumo.setId(Integer.parseInt(JOptionPane.showInputDialog("Entre com o id")));
+        
+        consumo = consumoDao.updateRecord( consumo, conect );
+        
+        return consumo;
+    }
+    
+    public ConsumoMes insereRegistro ( Conexao conect ) {
+        
+        //  Criando um objeto da class ConsumoDao para acessar suas propriedades e metodos.
+        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        // Criando um objeto da class ConsumoMes para acessar suas propriedades e metodos.
+        ConsumoMes consumo = new ConsumoMes();
+
+        consumo.setData(JOptionPane.showInputDialog("Entre com a data"));
+        consumo.setMedida(Integer.parseInt(JOptionPane.showInputDialog("Entre com a medida")));
+        
+        consumo = consumoDao.insertRecord( consumo, conect );
+        
+        return consumo;
+    }
+    
+    public int deletaRegistro ( Conexao conect ) {
+        
+        return 0;
+    }
+    
+    public int selecionaMediaKwh ( Conexao conect ) {
+        
+        return 0;
+    }
+    
+    public float selecionaTotalKwh ( Conexao conect ) {
+        
+        return 0;
+    } 
+    
 }

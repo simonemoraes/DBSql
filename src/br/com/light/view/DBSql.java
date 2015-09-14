@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class DBSql {
     
     private Conexao conect;
-
+//ConsumoMes{id=299, data=2015-09-07, medida=1635.0, medida_anterior=1629.0, kwh_mes=6.0}
     public DBSql() {
         
         conect = new Conexao();
@@ -20,6 +20,8 @@ public class DBSql {
         //selecionar( conect );
         //selecionarPorData( conect );
         //selecionarUltimoRegistro();
+        //atualizarRegistro();
+        inserirRegistro();
         
         
     }
@@ -197,19 +199,14 @@ public class DBSql {
         }
 
     }
-/*
+
     
     //Método para alterar registro na base de dados
-    public static void atualizar() {
+    public  void atualizarRegistro() {
 
-        ConsumoMesDao consumoDao = new ConsumoMesDao();
-        ConsumoMes consumo = new ConsumoMes();
-
-        consumo.setData(JOptionPane.showInputDialog("Entre com a data\n"));
-        consumo.setMedida(Integer.parseInt(JOptionPane.showInputDialog("Entre com a medida")));
-        consumo.setId(Integer.parseInt(JOptionPane.showInputDialog("Entre com o id")));
-
-        ConsumoMes retorno = consumoDao.updateRecord(consumo);
+        ConsumoMesSRV consumoSRV = new ConsumoMesSRV();
+        
+        ConsumoMes retorno = consumoSRV.atualizaRegistro( conect );
 
         if (retorno != null) {
             System.out.println(retorno);
@@ -218,29 +215,22 @@ public class DBSql {
             System.out.println("Atualização não foi concluida!");
         }
     }
+   
 
     //Método para inserir registro na base de dados
-    public static void inserir() {
+    public  void inserirRegistro () {
 
-        //  Criando um objeto da class ConsumoDao para acessar suas propriedades e metodos.
-        ConsumoMesDao consumoDao = new ConsumoMesDao();
-
-        // Criando um objeto da class ConsumoMes para acessar suas propriedades e metodos.
-        ConsumoMes consumo = new ConsumoMes();
+        ConsumoMesSRV consumoSRV = new ConsumoMesSRV();
         ConsumoMes consumoRetornado = new ConsumoMes();
 
-        consumo.setData(JOptionPane.showInputDialog("Entre com a data"));
-        consumo.setMedida(Integer.parseInt(JOptionPane.showInputDialog("Entre com a medida")));
-
-
-        consumoRetornado = consumoDao.insertRecord(consumo);
+        consumoRetornado = consumoSRV.insereRegistro( conect );
 
         System.out.println(consumoRetornado.toString());
 
     }
-
+/*
     //Método para deletar registro na base de dados
-    public static void deletar() {
+    public static void deletarRegistro () {
 
         ConsumoMesDao consumoDao = new ConsumoMesDao();
         ConsumoMes consumo = new ConsumoMes();
