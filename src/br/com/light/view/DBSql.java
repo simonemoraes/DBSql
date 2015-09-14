@@ -17,7 +17,11 @@ public class DBSql {
         
         conect = new Conexao();
         
-        selecionar( conect );
+        //selecionar( conect );
+        //selecionarPorData( conect );
+        //selecionarUltimoRegistro();
+        
+        
     }
 
     public static void main(String[] args) throws SQLException {
@@ -149,7 +153,7 @@ public class DBSql {
     //Método para fazer consulta de registro na base de dados
     public  void selecionar( Conexao conect ) {
 
-        ConsumoMesDao consumoDao = new ConsumoMesDao();
+        //ConsumoMesDao consumoDao = new ConsumoMesDao();
         ConsumoMesSRV consumoMesSrv = new ConsumoMesSRV();
 
         List<ConsumoMes> lista = consumoMesSrv.selecionaRegistros( conect );
@@ -160,42 +164,41 @@ public class DBSql {
         }
 
     }
+
+    public  void selecionarPorData( Conexao conect ) {
+
+        ConsumoMes registroRetornado = new ConsumoMes();
+        ConsumoMesSRV consumoMesSRV = new ConsumoMesSRV();
+        
+        registroRetornado = consumoMesSRV.selecionaRegistrosPorData( conect );
+        
+        if (registroRetornado != null) {
+            System.out.println(registroRetornado);
+            System.out.println("Operação efetuada com sucesso!");
+        } else {
+            System.out.println("Operação não concluida!");
+        }
+        
+       
+    }
+
+    public void selecionarUltimoRegistro() {
+
+        ConsumoMesSRV consumoSRV = new ConsumoMesSRV();
+        //ConsumoMes consumo = new ConsumoMes();
+
+        ConsumoMes recebeUltimoRegistro = consumoSRV.selecionaUltimoRegistroInserido( conect );
+
+        if (recebeUltimoRegistro != null) {
+            System.out.println(recebeUltimoRegistro);
+            System.out.println("Operação efetuada com sucesso!");
+        } else {
+            System.out.println("Operação não concluida!");
+        }
+
+    }
 /*
-    public static void selecionarPorData() {
-
-        ConsumoMesDao consumoDao = new ConsumoMesDao();
-        ConsumoMes consumo = new ConsumoMes();
-        //String data = null;
-
-        consumo.setData(JOptionPane.showInputDialog("Digite uma data a ser consultada"));
-
-        ConsumoMes retorno = consumoDao.selectRecordDate(consumo);
-
-        if (retorno != null) {
-            System.out.println(retorno);
-            System.out.println("Operação efetuada com sucesso!");
-        } else {
-            System.out.println("Operação não concluida!");
-        }
-
-    }
-
-    public static void selecionarUltimo() {
-
-        ConsumoMesDao consumoDao = new ConsumoMesDao();
-        ConsumoMes consumo = new ConsumoMes();
-
-        ConsumoMes retorno = consumoDao.lastInsertSelect(consumo);
-
-        if (retorno != null) {
-            System.out.println(retorno);
-            System.out.println("Operação efetuada com sucesso!");
-        } else {
-            System.out.println("Operação não concluida!");
-        }
-
-    }
-
+    
     //Método para alterar registro na base de dados
     public static void atualizar() {
 

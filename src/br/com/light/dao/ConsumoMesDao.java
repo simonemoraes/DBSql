@@ -49,13 +49,14 @@ public class ConsumoMesDao {
     }
 
     /* Metodo para selecionar o registro no banco atraves da data.*/
-    public ConsumoMes selectRecordDate(ConsumoMes consumo, Conexao conect ) {
+    public ConsumoMes selectRecordDate( ConsumoMes consumo, Conexao conect ) {
 
         PreparedStatement ps;
         ResultSet rs;
         String sql;
+       
         ConsumoMes consumoRetornado = new ConsumoMes();
-
+        
         sql = "select * from CONSUMO_MES where DATA = ?;";
 
         try {
@@ -81,12 +82,12 @@ public class ConsumoMesDao {
         return consumoRetornado;
     }
 
-    public ConsumoMes lastInsertSelect(ConsumoMes consumo, Conexao conect ) {
+    public ConsumoMes lastInsertSelect( Conexao conect ) {
 
         PreparedStatement ps;
         ResultSet rs;
         String sql;
-        ConsumoMes consumoRetornado = new ConsumoMes();
+        ConsumoMes ultimoRegistro = new ConsumoMes();
 
         sql = "select top 1 * from CONSUMO_MES order by medida desc";
 
@@ -97,11 +98,11 @@ public class ConsumoMesDao {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                consumoRetornado.setId(rs.getInt("ID"));
-                consumoRetornado.setData(rs.getString("DATA"));
-                consumoRetornado.setMedida(rs.getFloat("MEDIDA"));
-                consumoRetornado.setMedida_anterior(rs.getFloat("MEDIDA_ANTERIOR"));
-                consumoRetornado.setKwh_mes(rs.getFloat("TOTAL_KWH_MES"));
+                ultimoRegistro.setId(rs.getInt("ID"));
+                ultimoRegistro.setData(rs.getString("DATA"));
+                ultimoRegistro.setMedida(rs.getFloat("MEDIDA"));
+                ultimoRegistro.setMedida_anterior(rs.getFloat("MEDIDA_ANTERIOR"));
+                ultimoRegistro.setKwh_mes(rs.getFloat("TOTAL_KWH_MES"));
             }
 
         } catch (SQLException e) {
@@ -110,7 +111,7 @@ public class ConsumoMesDao {
 
         conect.closeAll();
 
-        return consumoRetornado;
+        return ultimoRegistro;
     }
 
     /* Método para atualizar registro no banco.*/
