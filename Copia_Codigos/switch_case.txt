@@ -1,0 +1,118 @@
+/*
+    public static void opcaoAlteracao() {
+
+        Tarifas tarifa = new Tarifas();
+        int selecao = 0;
+
+        do {
+
+            selecao = Integer.parseInt(JOptionPane.showInputDialog("Escolhar a opção desejada:"
+                    + "\n\n\n***** CONSUMO *****\n\n"
+                    + "\n1 - Selecionar "
+                    + "\n2 - Selecionar por data "
+                    + "\n3 - Selecionar ultimo registro"
+                    + "\n4 - Atualizar"
+                    + "\n5 - Inserir"
+                    + "\n6 - Deletar"
+                    + "\n7 - Media diaria de Kwh por periodo"
+                    + "\n8 - Total de Kwh por periodo"
+                    + "\n\n\n***** TARIFAS *****\n\n"
+                    + "\n9 - Seleciona todas as tarifas"
+                    + "\n10- Insere uma nova tarifa"
+                    + "\n11- Atualiza tarifa"
+                    + "\n12- Deleta tarifa"
+                    + "\n13- Seleciona id da ultima tarifa inserida"
+                    + "\n14- Calcula conta"
+                    + "\n15- sair\n\n"));
+            ValorTarifas valorTarifas = new ValorTarifas();
+
+            switch (selecao) {
+
+                case 1:
+                    
+                    selecionar();
+                    break;
+
+                case 2:
+                    selecionarPorData();
+                    break;
+
+                case 3:
+                    selecionarUltimo();
+                    break;
+
+                case 4:
+                    atualizar();
+                    break;
+
+                case 5:
+                    inserir();
+                    break;
+
+                case 6:
+                    deletar();
+                    break;
+
+                case 7:
+                    selecionarMediaKwh();
+                    break;
+
+                case 8:
+                    selecionarTotalKwh();
+                    break;
+
+                case 9:
+                    tarifa.selecinaTarifas();
+                    break;
+
+                case 10:
+                    valorTarifas.setTarifa(Double.parseDouble(JOptionPane.showInputDialog("Insira um valor para tarifa")));
+                    valorTarifas.setTarifa_bVermelha(Double.parseDouble(JOptionPane.showInputDialog("Insira um valor para tarifa BVermelha")));
+                    valorTarifas.setTarifa_Iluminacao(Double.parseDouble(JOptionPane.showInputDialog("Insira um valor para taxa de iluminação")));
+
+                    tarifa.insereTarifas(valorTarifas);
+                    break;
+
+                case 11:
+                    valorTarifas.setId(Integer.parseInt(JOptionPane.showInputDialog("Insira o id do registro a ser atualizado")));
+
+                    ValorTarifas objetoRetornado = tarifa.buscaTarifaPorIdService(valorTarifas.getId());
+
+                    if (objetoRetornado.getTarifa() > 0) {
+                        System.out.println("id: " + objetoRetornado.getId());
+                        System.out.println("Tarifa: " + objetoRetornado.getTarifa());
+                        System.out.println("Vermelha: " + objetoRetornado.getTarifa_bVermelha());
+                        System.out.println("Iluminação: " + objetoRetornado.getTarifa_Iluminacao());
+
+                        valorTarifas.setTarifa(Double.parseDouble(JOptionPane.showInputDialog("Insira um valor para"
+                                + " atualização da tarifa")));
+                        valorTarifas.setTarifa_bVermelha(Double.parseDouble(JOptionPane.showInputDialog("Insira um valor para"
+                                + " atualização da tarifa BVermelha")));
+                        valorTarifas.setTarifa_Iluminacao(Double.parseDouble(JOptionPane.showInputDialog("Insira um valor para"
+                                + " atualização da taxa de iluminação")));
+                        tarifa.atualizaTarifas(valorTarifas);
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "Tarifa não encontrada");
+                    }
+                    break;
+
+                case 12:
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite um id valido"));
+                    tarifa.deletaTarifas(id);
+                    break;
+
+                case 13:
+                    tarifa.selecionaUltimo_idTarifa();
+                    break;
+
+                case 14:
+                    tarifa.calculoConta();
+                    break;
+
+                case 15:
+                    System.exit(0);
+            }
+        } while (selecao != 15);
+    }
+    * */
