@@ -17,8 +17,8 @@ public class DBSql {
         
         conect = new Conexao();
         
-        selecionar( conect );
-        //selecionarPorData( conect );
+        //selecionar( conect );
+        selecionarPorData( conect );
         //selecionarUltimoRegistro();
         //atualizarRegistro();
         //inserirRegistro();
